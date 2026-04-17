@@ -1,10 +1,10 @@
 
 import { Navigate } from "react-router-dom";
-import { getUserFromToken } from "@/lib/utils";
-import { JSX } from "react";
-import { roles } from "@/config/conditions";
+import { getUserFromToken } from "../utills/checkAuth";
+import { roles } from "../config/conditions";
 
-const AdminOnlyRoute = ({ element }: { element: JSX.Element }) => {
+
+const AdminOnlyRoute = ({ element }: { element: any }) => {
   const user = getUserFromToken();
 
   if (!user || user.role !== roles.ADMIN) {
