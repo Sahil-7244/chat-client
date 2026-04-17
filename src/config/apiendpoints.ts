@@ -1,8 +1,8 @@
 // export const APIMAINURL = "https://8j8gfz7b-8000.inc1.devtunnels.ms/Chat/v1";
-export const APIMAINURL = "http://localhost:8001/Chat/v1";
+export const APIMAINURL = import.meta.env.VITE_API_MAIN_URL || "http://localhost:8001/Chat/v1";
 
 // export const APIMAINURLFORSOCKET = "https://8j8gfz7b-8000.inc1.devtunnels.ms";
-export const APIMAINURLFORSOCKET = "http://localhost:8001";
+export const APIMAINURLFORSOCKET = import.meta.env.VITE_API_MAIN_URL_FOR_SOCKET || "http://localhost:8001";
 
 export const endpoints = {
   LOGIN: '/auth/login',
