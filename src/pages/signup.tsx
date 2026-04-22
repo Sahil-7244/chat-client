@@ -14,11 +14,13 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axiosInstance.post(endpoints.REGISTER, {
         firstName,
@@ -35,6 +37,8 @@ export const SignUp = () => {
     } catch (error: any) {
       console.log(error)
       toast.error(error.response.data.message || "Signup failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -155,9 +159,10 @@ export const SignUp = () => {
           <div>
             <button
               type="submit"
+              disabled={loading}
               className="w-full px-4 py-2 text-sm font-medium text-white bg-gray-600 border border-transparent rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:scale-105 active:scale-90 transition-all duration-300"
             >
-              {Strings?.SIGNUP}
+              {loading ? "Signing up..." : Strings?.SIGNUP}
             </button>
           </div>
         </form>

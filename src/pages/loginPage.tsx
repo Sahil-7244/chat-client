@@ -12,11 +12,13 @@ const Login = ({ setAuthenticated }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axiosInstance.post(endpoints.LOGIN, {
         email,
@@ -31,6 +33,8 @@ const Login = ({ setAuthenticated }: any) => {
     } catch (error: any) {
       console.log(error)
       toast.error(error.response.data.message || "login failed");
+    } finally{
+      setLoading(false);
     }
   };
   return (
@@ -95,9 +99,10 @@ const Login = ({ setAuthenticated }: any) => {
           <div>
             <button
               type="submit"
+              disabled={loading}
               className="w-full px-4 py-2 text-sm font-medium text-white bg-gray-600 border border-transparent rounded-md shadow-sm hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:scale-105 active:scale-90 transition-all duration-300"
             >
-              {Strings?.LOGIN}
+              {loading ? "Logging in..." : Strings?.LOGIN}
             </button>
           </div>
         </form>
